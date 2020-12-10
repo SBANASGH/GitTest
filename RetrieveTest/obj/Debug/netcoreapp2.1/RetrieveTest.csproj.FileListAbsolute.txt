@@ -1,0 +1,14 @@
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\bin\Debug\netcoreapp2.1\RetrieveTest.deps.json
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\bin\Debug\netcoreapp2.1\RetrieveTest.runtimeconfig.json
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\bin\Debug\netcoreapp2.1\RetrieveTest.runtimeconfig.dev.json
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\bin\Debug\netcoreapp2.1\RetrieveTest.dll
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\bin\Debug\netcoreapp2.1\RetrieveTest.pdb
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\obj\Debug\netcoreapp2.1\RetrieveTest.csprojAssemblyReference.cache
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\obj\Debug\netcoreapp2.1\RetrieveTest.csproj.CoreCompileInputs.cache
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\obj\Debug\netcoreapp2.1\RetrieveTest.RazorAssemblyInfo.cache
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\obj\Debug\netcoreapp2.1\RetrieveTest.RazorAssemblyInfo.cs
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\obj\Debug\netcoreapp2.1\RetrieveTest.AssemblyInfoInputs.cache
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\obj\Debug\netcoreapp2.1\RetrieveTest.AssemblyInfo.cs
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\obj\Debug\netcoreapp2.1\RetrieveTest.RazorTargetAssemblyInfo.cache
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\obj\Debug\netcoreapp2.1\RetrieveTest.dll
+C:\Users\appeon\Desktop\RetrieveTest\RetrieveTest\obj\Debug\netcoreapp2.1\RetrieveTest.pdb

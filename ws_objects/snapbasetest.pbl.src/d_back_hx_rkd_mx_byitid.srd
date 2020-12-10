@@ -1,0 +1,121 @@
+﻿$PBExportHeader$d_back_hx_rkd_mx_byitid.srd
+$PBExportComments$销售退货出库单明细(核销)
+release 6;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 )
+header(height=72 color="553648127" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="553648127" )
+table(column=(type=char(10) update=yes updatewhereclause=yes key=yes name=cpid dbname="wh_indl.cpid" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=wh_inid dbname="wh_indl.wh_inid" )
+ column=(type=char(23) update=yes updatewhereclause=yes key=yes name=inrec dbname="wh_indl.inrec" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=itid dbname="wh_indl.itid" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=unitid dbname="wh_indl.unitid" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=shlid dbname="wh_indl.shlid" )
+ column=(type=decimal(6) update=yes updatewhereclause=yes name=number dbname="wh_indl.number" )
+ column=(type=decimal(6) update=yes updatewhereclause=yes name=price dbname="wh_indl.price" )
+ column=(type=decimal(6) update=yes updatewhereclause=yes name=amount dbname="wh_indl.amount" )
+ column=(type=datetime update=yes updatewhereclause=yes name=invlddate dbname="wh_indl.invlddate" )
+ column=(type=datetime update=yes updatewhereclause=yes name=prodate dbname="wh_indl.prodate" )
+ column=(type=long update=yes updatewhereclause=yes name=qltyperiod dbname="wh_indl.qltyperiod" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=batchnum dbname="wh_indl.batchnum" )
+ column=(type=decimal(6) update=yes updatewhereclause=yes name=sttlnum dbname="wh_indl.sttlnum" )
+ column=(type=decimal(6) update=yes updatewhereclause=yes name=sttlamt dbname="wh_indl.sttlamt" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=sttliscl dbname="wh_indl.sttliscl" )
+ column=(type=decimal(6) update=yes updatewhereclause=yes name=formvoinum dbname="wh_indl.formvoinum" )
+ column=(type=decimal(6) update=yes updatewhereclause=yes name=formvoiiscl dbname="wh_indl.formvoiiscl" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=relorder dbname="wh_indl.relorder" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=memo dbname="wh_indl.memo" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=cncsign dbname="wh_indl.cncsign" )
+ column=(type=decimal(6) updatewhereclause=yes name=discount dbname="discount" )
+ column=(type=decimal(6) updatewhereclause=yes name=taxrate dbname="taxrate" )
+ column=(type=char(40) updatewhereclause=yes name=itnum dbname="co_item.itnum" )
+ column=(type=char(40) updatewhereclause=yes name=itname dbname="co_item.itname" )
+ retrieve="  SELECT wh_indl.cpid,   
+         wh_indl.wh_inid,   
+         wh_indl.inrec,   
+         wh_indl.itid,   
+         wh_indl.unitid,   
+         wh_indl.shlid,   
+         wh_indl.number,   
+         wh_indl.pricesl price,   
+         wh_indl.amountsl amount,   
+         wh_indl.invlddate,   
+         wh_indl.prodate,   
+         wh_indl.qltyperiod,   
+         wh_indl.batchnum,   
+         wh_indl.sttlnum,   
+         wh_indl.sttlamt,   
+         wh_indl.sttliscl,   
+         wh_indl.formvoinum,   
+         wh_indl.formvoiiscl,   
+         wh_indl.relorder,   
+         wh_indl.memo,   
+         wh_indl.cncsign,   
+         isnull(wh_indl.discount,1) discount,
+			isnull(wh_indl.taxrate,0) taxrate,
+			co_item.itnum,
+			co_item.itname
+    FROM wh_in,
+			wh_indl,
+			co_item
+   WHERE wh_indl.wh_inid = wh_in.wh_inid and
+			wh_indl.cpid	 = wh_in.cpid and
+			wh_in.bladtmark = '1' and
+			wh_in.clid		 = :as_clid and
+			wh_in.ioclid	 = :as_iotype and
+			wh_indl.itid = :as_itid and
+			isnull(wh_indl.sttliscl,0)  <> '1' and
+			co_item.itid = wh_indl.itid
+" update="wh_indl" updatewhere=0 updatekeyinplace=no arguments=(("as_clid", string),("as_iotype", string),("as_itid", string)) )
+text(band=header alignment="2" text="公司id"border="0" color="0" x="9" y="8" height="60" width="302"  name=cpid_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="入库单id"border="0" color="0" x="320" y="8" height="60" width="576"  name=wh_inid_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="入库分录号"border="0" color="0" x="905" y="8" height="60" width="658"  name=inrec_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="商品id"border="0" color="0" x="1573" y="8" height="60" width="773"  name=itid_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="计量单位id"border="0" color="0" x="2354" y="8" height="60" width="334"  name=unitid_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="货位id"border="0" color="0" x="2697" y="8" height="60" width="576"  name=shlid_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="数量"border="0" color="0" x="3282" y="8" height="60" width="329"  name=number_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="单价"border="0" color="0" x="3621" y="8" height="60" width="329"  name=price_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="金额"border="0" color="0" x="3959" y="8" height="60" width="329"  name=amount_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="失效日期"border="0" color="0" x="4297" y="8" height="60" width="603"  name=invlddate_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="生产日期"border="0" color="0" x="4910" y="8" height="60" width="603"  name=prodate_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="保质期"border="0" color="0" x="5522" y="8" height="60" width="329"  name=qltyperiod_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="批号"border="0" color="0" x="5861" y="8" height="60" width="576"  name=batchnum_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="结算数量"border="0" color="0" x="6446" y="8" height="60" width="329"  name=sttlnum_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="结算金额"border="0" color="0" x="6784" y="8" height="60" width="329"  name=sttlamt_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="是否结算完毕"border="0" color="0" x="7122" y="8" height="60" width="375"  name=sttliscl_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="生成发票数量"border="0" color="0" x="7506" y="8" height="60" width="384"  name=formvoinum_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="生成发票是否关闭"border="0" color="0" x="7899" y="8" height="60" width="512"  name=formvoiiscl_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="关联单据号（订单）"border="0" color="0" x="8421" y="8" height="60" width="613"  name=relorder_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="备注"border="0" color="0" x="9042" y="8" height="60" width="850"  name=memo_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cncsign"border="0" color="0" x="9902" y="8" height="60" width="201"  name=cncsign_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="折扣率"border="0" color="0" x="10112" y="8" height="60" width="274"  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Taxrate"border="0" color="0" x="10395" y="4" height="76" width="2341"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Co Item Itnum"border="0" color="0" x="12745" y="4" height="56" width="530"  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Co Item Itname"border="0" color="0" x="13285" y="4" height="56" width="800"  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="9" y="0" height="68" width="302" format="[general]"  name=cpid  tag="公司id" edit.limit=10 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="320" y="0" height="68" width="576" format="[general]"  name=wh_inid  tag="入库单id" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="905" y="0" height="68" width="658" format="[general]"  name=inrec  tag="入库分录号" edit.limit=23 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=40 border="0" color="0" x="1573" y="0" height="68" width="773" format="[general]"  name=itid  tag="商品id" edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=50 border="0" color="0" x="2354" y="0" height="68" width="334" format="[general]"  name=unitid  tag="计量单位id" edit.limit=10 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=60 border="0" color="0" x="2697" y="0" height="68" width="576" format="[general]"  name=shlid  tag="货位id" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=70 border="0" color="0" x="3282" y="0" height="68" width="329" format="[general]"  name=number  tag="数量" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=80 border="0" color="0" x="3621" y="0" height="68" width="329" format="[general]"  name=price  tag="单价" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=90 border="0" color="0" x="3959" y="0" height="68" width="329" format="[general]"  name=amount  tag="金额" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=100 border="0" color="0" x="4297" y="0" height="68" width="603" format="[shortdate] [time]"  name=invlddate  tag="失效日期" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=110 border="0" color="0" x="4910" y="0" height="68" width="603" format="[shortdate] [time]"  name=prodate  tag="生产日期" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=120 border="0" color="0" x="5522" y="0" height="68" width="329" format="[general]"  name=qltyperiod  tag="保质期" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=130 border="0" color="0" x="5861" y="0" height="68" width="576" format="[general]"  name=batchnum  tag="批号" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="0" tabsequence=140 border="0" color="0" x="6446" y="0" height="68" width="329" format="[general]"  name=sttlnum  tag="结算数量" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="0" tabsequence=150 border="0" color="0" x="6784" y="0" height="68" width="329" format="[general]"  name=sttlamt  tag="结算金额" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=160 border="0" color="0" x="7122" y="0" height="68" width="375" format="[general]"  name=sttliscl  tag="是否结算完毕" edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=170 border="0" color="0" x="7506" y="0" height="68" width="384" format="[general]"  name=formvoinum  tag="生成发票数量" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="0" tabsequence=180 border="0" color="0" x="7899" y="0" height="68" width="512" format="[general]"  name=formvoiiscl  tag="生成发票是否关闭" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="0" tabsequence=190 border="0" color="0" x="8421" y="0" height="68" width="613" format="[general]"  name=relorder  tag="关联单据号（订单）" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=20 alignment="0" tabsequence=200 border="0" color="0" x="9042" y="0" height="68" width="850" format="[general]"  name=memo  tag="备注" edit.limit=30 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=21 alignment="0" tabsequence=210 border="0" color="0" x="9902" y="0" height="68" width="201" format="[general]"  name=cncsign edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=22 alignment="1" tabsequence=32766 border="0" color="0" x="10112" y="0" height="68" width="274" format="[general]"  name=discount edit.limit=0 edit.case=any edit.autoselect=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=23 alignment="0" tabsequence=32766 border="0" color="0" x="10395" y="0" height="56" width="2341" format="[general]"  name=taxrate edit.limit=0 edit.case=any edit.autoselect=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=24 alignment="0" tabsequence=32766 border="0" color="0" x="12745" y="0" height="56" width="530" format="[general]"  name=itnum edit.limit=0 edit.case=any edit.autoselect=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=25 alignment="0" tabsequence=32766 border="0" color="0" x="13285" y="0" height="56" width="800" format="[general]"  name=itname edit.limit=0 edit.case=any edit.autoselect=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")

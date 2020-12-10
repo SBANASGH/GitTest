@@ -1,0 +1,38 @@
+﻿$PBExportHeader$d_back_ckd_hx.srd
+$PBExportComments$采购退货收款出库单
+release 6;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 selected.mouse=no )
+header(height=76 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(1) updatewhereclause=yes name=isuse dbname="wh_out.isuse" values="	1/	0" )
+ column=(type=char(20) updatewhereclause=yes name=outwhid dbname="wh_out.outwhid" )
+ column=(type=decimal(6) updatewhereclause=yes name=sttlamt dbname="sttlamt" )
+ column=(type=decimal(14) updatewhereclause=yes name=amountsl dbname="amountsl" )
+ retrieve="  SELECT wh_out.isuse,   
+         wh_out.outwhid,   
+         sum(isnull(wh_outdl.sttlamt,0)) sttlamt,
+			sum(isnull(wh_outdl.amountsl,0)*isnull(wh_outdl.discount,1)*(1 + isnull(wh_outdl.taxrate,0))) amountsl
+    FROM wh_out,
+			wh_outdl  
+   WHERE ( wh_out.bladtmark = '1' ) AND  
+         ( wh_out.spid =  :id ) AND  
+         ( wh_out.ioclid = :s_iotype) and
+			( wh_out.outwhid = wh_outdl.outwhid ) and
+			( wh_out.cpid		= wh_outdl.cpid ) and
+			( wh_out.bladtmark = '1' ) and  
+         ( wh_outdl.sttliscl = '0' )
+   Group by wh_out.isuse,   
+         	wh_out.outwhid
+ having sum(isnull(wh_outdl.sttlamt,0)) < sum(isnull(wh_outdl.amountsl,0)*Isnull(wh_outdl.discount,1)*(1 + isnull(wh_outdl.taxrate,0)))
+" arguments=(("id", string),("s_iotype", string)) )
+text(band=header alignment="2" text="状态"border="6" color="0" x="9" y="8" height="64" width="142"  name=isuse_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269528" )
+text(band=header alignment="2" text="出库单编码"border="6" color="0" x="160" y="8" height="64" width="553"  name=outwhid_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269528" )
+text(band=header alignment="0" text="核销金额"border="6" color="0" x="722" y="8" height="64" width="475"  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="2" background.color="80269524" )
+text(band=header alignment="0" text="待核销金额"border="6" color="0" x="1207" y="8" height="64" width="398"  name=c_accsttlamt_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="2" background.color="80269524" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="9" y="0" height="68" width="142" format="[general]"  name=isuse  tag="使用状态" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=yes checkbox.threed=no  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="160" y="0" height="68" width="553" format="[general]"  name=outwhid  tag="出库单id" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="722" y="0" height="68" width="475" format="0.00"  name=sttlamt edit.limit=0 edit.case=any edit.autoselect=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression=" amountsl -  sttlamt "border="0" color="0" x="1207" y="0" height="68" width="398" format="0.00"  name=c_accsttlamt  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")

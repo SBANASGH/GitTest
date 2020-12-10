@@ -1,0 +1,46 @@
+﻿$PBExportHeader$d_back_skd_itid.srd
+release 6;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 selected.mouse=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=char(1) updatewhereclause=yes name=isuse dbname="wh_outdl.isuse" values="	1/	0" )
+ column=(type=char(40) updatewhereclause=yes name=itid dbname="wh_outdl.itid" )
+ column=(type=char(40) updatewhereclause=yes name=itnum dbname="co_item.itnum" )
+ column=(type=char(40) updatewhereclause=yes name=itname dbname="co_item.itname" )
+ column=(type=decimal(6) updatewhereclause=yes name=sttlamt dbname="sttlamt" )
+ column=(type=decimal(14) updatewhereclause=yes name=amountsl dbname="amountsl" )
+ retrieve="  SELECT wh_outdl.isuse,			
+			wh_outdl.itid,
+			co_item.itnum,
+			co_item.itname,
+         sum(isnull(wh_outdl.sttlamt,0)) sttlamt,   
+         sum(isnull(wh_outdl.amountsl,0)*isnull(wh_outdl.discount,1) * (1 + isnull(wh_outdl.taxrate,0))) amountsl  
+    FROM wh_outdl,   
+         wh_out,
+			co_item  
+   WHERE ( wh_out.cpid = wh_outdl.cpid ) and  
+         ( wh_out.outwhid = wh_outdl.outwhid ) and  
+         ( wh_out.spid = :id  ) and  
+			( wh_out.ioclid = :as_iotype ) and  
+         ( wh_out.bladtmark = '1' ) and  
+         ( wh_outdl.sttliscl = '0' ) and
+			( co_item.itid = wh_outdl.itid )
+   Group by wh_outdl.isuse,				
+				wh_outdl.itid,
+				co_item.itnum,
+				co_item.itname
+  having sum(isnull(wh_outdl.sttlamt,0)) < sum(isnull(wh_outdl.amountsl,0)*isnull(wh_outdl.discount,1)* (1 + isnull(wh_outdl.taxrate,0)))
+     
+       
+" arguments=(("id", string),("as_iotype", string)) )
+text(band=header alignment="2" text="状态"border="6" color="0" x="9" y="4" height="64" width="155"  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="2" background.color="80269528" )
+text(band=header alignment="0" text="商品编码"border="6" color="0" x="174" y="4" height="64" width="750"  name=itnum_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="2" background.color="80269524" )
+text(band=header alignment="1" text="核销金额"border="6" color="0" x="933" y="4" height="64" width="421"  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="2" background.color="80269524" )
+text(band=header alignment="1" text="待核销金额"border="6" color="0" x="1362" y="4" height="64" width="407"  name=c_accamount_t  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="2" background.color="80269524" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="9" y="4" height="60" width="155" format="[general]"  name=isuse checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=yes checkbox.threed=no  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="0" x="933" y="4" height="60" width="421" format="0.00"  name=sttlamt edit.limit=0 edit.case=any edit.autoselect=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="1" expression=" amountsl -  sttlamt "border="0" color="0" x="1362" y="4" height="60" width="407" format="0.00"  name=c_accamount  font.face="宋体" font.height="-9" font.weight="400"  font.family="0" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="174" y="4" height="60" width="750" format="[general]"  name=itnum edit.limit=0 edit.case=any edit.autoselect=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")

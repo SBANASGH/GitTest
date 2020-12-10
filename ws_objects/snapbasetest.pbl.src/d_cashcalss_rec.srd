@@ -1,0 +1,13 @@
+﻿$PBExportHeader$d_cashcalss_rec.srd
+$PBExportComments$收付款类型（收）
+release 6;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(10) update=yes updatewhereclause=yes key=yes name=csclid dbname="fn_cashclass.csclid" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=csclname dbname="fn_cashclass.csclname" )
+ column=(type=char(1) updatewhereclause=yes name=csclstate dbname="fn_cashclass.csclstate" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"fn_cashclass~" ) COLUMN(NAME=~"fn_cashclass.csclid~") COLUMN(NAME=~"fn_cashclass.csclname~") COLUMN(NAME=~"fn_cashclass.csclstate~")WHERE(    EXP1 =~"fn_cashclass.csclstate~"   OP =~"=~"    EXP2 =~"'1'~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"fn_cashclass.csclid~"   OP =~"<>~"    EXP2 =~"'0000000010'~" ) ) " update="fn_cashclass" updatewhere=1 updatekeyinplace=no )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="4" height="60" width="709" format="[general]"  name=csclname  tag="收付款名称" edit.limit=30 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="宋体" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="134" background.mode="1" background.color="536870912" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
